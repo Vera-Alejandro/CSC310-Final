@@ -22,12 +22,12 @@ e_NODE* Employee::getCurrent()
     return this->_first;
 }
 
-int Employee:: returnID()
+int Employee::returnID()
 {
     return this->_ID;
 }
 
-int Employee:: returnDepartment()
+int Employee::returnDepartment()
 {
     return this->_Department;
 }
@@ -81,7 +81,6 @@ Employee Employee:: RetrieveEmployee(int ID, int department)
         std::cerr << e.what() << '\n';
         return bad;
     }
-    
 }
 
 
