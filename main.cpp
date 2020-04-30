@@ -1,18 +1,28 @@
 #include <iostream>
 #include "customErrorClass.h"
+#include "binaryFile.h"
 
-int main()
-{
-
+/////////////////////////////////////////////////////////////////////
 
     //read - ale 
     //sort - drew
     //search - drew
-    //reterive from binary file - garrett
+    //retreive from binary file - garrett
     //update - garrett
     //impliment exception handling - ale 
 
-    cout << "hello world" << endl;
+/////////////////////////////////////////////////////////////////////
+
+int main()
+{
+
+    binaryFile inputFile;
+
+    // inputFile.ReadData(0);
+    inputFile.ReadData(1);
+    // inputFile.ReadData(2);
+    // inputFile.ReadData(3);
+
 
     return 0;
 }
