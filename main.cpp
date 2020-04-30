@@ -17,12 +17,15 @@ int main()
 {
 
     binaryFile inputFile;
+    Employee sort;
 
     // inputFile.ReadData(0);
     inputFile.ReadData(1);
     // inputFile.ReadData(2);
     // inputFile.ReadData(3);
     inputFile.RetrieveEmployee(4,20);
+
+    //sort.Sort()
 
 
     return 0;
