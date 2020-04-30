@@ -17,135 +17,19 @@ Employee::Employee()
 {
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 e_NODE* Employee::getCurrent()
 {
     return this->_first;
 }
 
-void Employee::Update(int ID, int department, string name)
+int Employee::returnID()
 {
-    _Update(ID, department, name);
+    return this->_ID;
+}
+
+int Employee::returnDepartment()
+{
+    return this->_Department;
 }
 
 void Employee::Sort(int ID, int department)
@@ -165,11 +49,113 @@ bool Employee::Search(int ID, int department)
     }
 }
 
-
         //Private
 
-void Employee::_Update(int ID, int department, string name)
+string Employee:: returnName()
 {
+    return this->_Name;
+}
+
+void Employee:: showData()
+{
+    cout << "ID: " << returnID() << endl;
+    cout << "Department: " << returnDepartment() << endl;
+    cout << "Name: " << returnName() << endl;
+}
+
+
+Employee Employee:: RetrieveEmployee(int ID, int department)
+{
+    Employee bad;
+    try
+    {
+        return _RetrieveEmployee(ID, department);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return bad;
+    }
+}
+
+void Employee::Update(int ID, int department)
+{
+    _Update(ID, department);
+}
+
+/////////////////////////////////////////////////Private//////////////////////////////////////////////////////////////
+
+Employee Employee:: _RetrieveEmployee(int ID, int department)
+{
+    int id_input;
+    int department_input;
+    string name_out;
+
+    ifstream search("employee_info.dat", ios::binary);
+
+    Employee retrieve;
+
+    if(!search) {
+        cout << "Cannot open file!" << endl;
+    }
+
+
+
+    while(search.read((char*)&retrieve, sizeof(retrieve)))
+    {
+        if(retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
+        {
+            name_out = retrieve.returnName();
+        }
+    }
+
+    search.close();
+    if(!search.good()){
+        cout << "Error Occured during read" << endl;
+        return;
+    }
+
+
+
+    cout << "Employee Details: " << endl;
+    cout << "ID: " << id_input << endl;
+    cout << "Department: " << department_input << endl;
+    cout << "Name: " << name_out << endl;
+
+    retrieve._ID = id_input;
+    retrieve._Department = department_input;
+    retrieve._Name = name_out;
+
+    return retrieve;
+    
+}
+
+void Employee::_Update(int ID, int department)
+{
+    string name;
+    int id_input;
+    int department_input;
+
+    fstream update;
+    update.open("employee_info.dat", ios::binary);
+
+    Employee updatedEmployee;
+
+    while(update.read((char*)&updatedEmployee, sizeof(updatedEmployee)))
+    {
+        if(updatedEmployee.returnID == id_input && updatedEmployee.returnDepartment == department_input)
+        {
+            cout << "Enter new name: ";
+            cin >> updatedEmployee._Name;
+
+            int pos = -1 * sizeof(updatedEmployee);
+            update.seekp(pos, ios::cur);
+
+            update.write((char*)&updatedEmployee, sizeof(updatedEmployee));
+        }
+    }
+
+    
     this->_ID = ID;
     this->_Department = department;
     this->_Name = name;

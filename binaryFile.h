@@ -20,10 +20,12 @@ class binaryFile
 {
 private:
     bool _ReadData(int size);
+    void _RetrieveData(int ID, int department);
 public:
     binaryFile();
     ~binaryFile();
     bool ReadData(int size);
+    void RetrieveData(int ID, int department);
 };
 
 class Employee

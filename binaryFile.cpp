@@ -52,8 +52,8 @@ bool binaryFile::_ReadData(int size)
        department = stoi(temp_string);
        getline(ss, temp_string, ',');
        employee_id = stoi(temp_string);
-       getline(ss, name, ',');
-        
+       getline(ss, name, ' ');
+
         new_Employee = new Employee(employee_id, department, name);
 
         output_binary.write((char*)new_Employee, sizeof(Employee));
@@ -83,5 +83,6 @@ bool binaryFile::ReadData(int size)
     catch(myException &e)
     {
         cerr << e.what() << endl;
+        return false;
     }
 }   
