@@ -20,12 +20,11 @@ class binaryFile
 {
 private:
     bool _ReadData(int size);
-    void _RetrieveData(int ID, int department);
 public:
     binaryFile();
     ~binaryFile();
     bool ReadData(int size);
-    void RetrieveData(int ID, int department);
+    bool RetrieveData(int ID, int department);
 };
 
 class Employee
@@ -36,7 +35,8 @@ private:
     string _Name;
     e_NODE *_first;
 
-    void _Update(int ID, int department, string name);
+    void _Update(int ID, int department);
+    Employee _RetrieveEmployee(int ID, int department);
     int _Search(int ID, int department);
     void _Sort(int ID, int department);
 
@@ -44,11 +44,15 @@ public:
     Employee();
     Employee(int ID, int department, string name);
     ~Employee();
-
-    e_NODE *getCurrent();
-    void Update(int ID, int department, string name);
-    bool Search(int ID, int department);
+    void showData();
     void Sort(int ID, int department);
+    void Update(int ID, int department);
+    int returnID();
+    int returnDepartment();
+    Employee RetrieveEmployee(int ID, int department);
+    e_NODE *getCurrent();
+    string returnName();
+    bool Search(int ID, int department);
 };
 
 #endif

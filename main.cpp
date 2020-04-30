@@ -23,6 +23,7 @@ int main()
     inputFile.ReadData(1);
     // inputFile.ReadData(2);
     // inputFile.ReadData(3);
+    inputFile.RetrieveEmployee(4,20);
 
     //sort.Sort()
 
