@@ -12,12 +12,11 @@ class binaryFile
 {
 private:
     bool _ReadData(int size);
-    void _RetrieveData(int ID, int department);
 public:
     binaryFile();
     ~binaryFile();
     bool ReadData(int size);
-    void RetrieveData(int ID, int department);
+    bool RetrieveData(int ID, int department);
 };
 
 class Employee
@@ -27,12 +26,19 @@ private:
     int _Department;
     string _Name;
 
-    void _Update(int ID, int department, string name);
+    void _Update(int ID, int department);
+    Employee _RetrieveEmployee(int ID, int department);
 public:
     Employee();
     Employee(int ID, int department, string name);
     ~Employee();
-    void Update(int ID, int department, string name);
+    void Update(int ID, int department);
+    Employee RetrieveEmployee(int ID, int department);
+    void showData();
+    int returnID();
+    int returnDepartment();
+    string returnName();
+
 };
 
 #endif

@@ -72,6 +72,7 @@ Employee Employee:: _RetrieveEmployee(int ID, int department)
     ifstream search("employee_info.dat", ios::binary);
 
     Employee retrieve;
+    Employee bad;
 
     if(!search) {
         cout << "Cannot open file!" << endl;
@@ -90,7 +91,7 @@ Employee Employee:: _RetrieveEmployee(int ID, int department)
     search.close();
     if(!search.good()){
         cout << "Error Occured during read" << endl;
-        return;
+        return bad;
     }
 
 
@@ -121,7 +122,7 @@ void Employee::_Update(int ID, int department)
 
     while(update.read((char*)&updatedEmployee, sizeof(updatedEmployee)))
     {
-        if(updatedEmployee.returnID == id_input && updatedEmployee.returnDepartment == department_input)
+        if(updatedEmployee.returnID() == id_input && updatedEmployee.returnDepartment() == department_input)
         {
             cout << "Enter new name: ";
             cin >> updatedEmployee._Name;
