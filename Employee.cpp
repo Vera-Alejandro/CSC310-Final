@@ -17,7 +17,8 @@ Employee::Employee()
 {
 }
 
-e_NODE* Employee::getCurrent(){
+e_NODE* Employee::getCurrent()
+{
     return this->_first;
 }
 
@@ -26,13 +27,13 @@ void Employee::Update(int ID, int department, string name)
     _Update(ID, department, name);
 }
 
-void Employee::Sort(int ID, int department){
-
+void Employee::Sort(int ID, int department)
+{
     _Sort(ID, department);
 }
 
-bool Employee::Search(int ID, int department){
-
+bool Employee::Search(int ID, int department)
+{
     int found;
     _Search(ID, department);
 
@@ -91,72 +92,6 @@ void Employee::_Sort(int ID, int department){
     while(search->next->next != NULL){
         cout<<node->value<<", "<<node->secondValue<<endl;
     }
-
-
-    /*while(department = 0){
-
-        for(int i = 0; (inputFile.ReadData).length; i++){
-
-            if(node->secondValue > node->next->secondValue){
-            tmp = node->current;
-            node->current = node->next;
-            node->next = tmp;
-            }
-        }
-
-    }
-    while(department = 1){
-
-        for(int i = 0; (inputFile.ReadData).length; i++){
-            
-            if(node->secondValue > node->next->secondValue){
-            tmp = node->current;
-            node->current = node->next;
-            node->next = tmp;
-            }
-        }
-
-    }
-    while(department = 2){
-
-        for(int i = 0; (inputFile.ReadData).length; i++){
-            
-            if(node->secondValue > node->next->secondValue){
-            tmp = node->current;
-            node->current = node->next;
-            node->next = tmp;
-            }
-        }
-
-    }
-
-    while(department = 3){
-
-        for(int i = 0; (inputFile.ReadData).length; i++){
-            
-            if(node->secondValue > node->next->secondValue){
-            tmp = node->current;
-            node->current = node->next;
-            node->next = tmp;
-            }
-        }
-
-    }
-
-    while(department = 4){
-
-        for(int i = 0; (inputFile.ReadData).length; i++){
-            
-            if(node->secondValue > node->next->secondValue){
-            tmp = node->current;
-            node->current = node->next;
-            node->next = tmp;
-            }
-        }
-
-    }*/
-
-
 }
 
 int Employee::_Search(int ID, int department){
@@ -175,5 +110,3 @@ int Employee::_Search(int ID, int department){
     return -1;
 
 }
-
-
