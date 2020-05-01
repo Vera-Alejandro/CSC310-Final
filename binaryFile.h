@@ -11,9 +11,9 @@ using namespace std;
 
 typedef struct NODE {
     int value, secondValue;
+    bool isSorted = false;
     NODE* current;
     NODE* next;
-    //NODE *previous;
 }e_NODE;
 
 class binaryFile
@@ -33,26 +33,28 @@ private:
     int _ID;
     int _Department;
     string _Name;
-    NODE* _first;
-
-    void _Update(int ID, int department);
-    Employee _RetrieveEmployee(int ID, int department);
+    e_NODE* _first;
+    NODE* _createNode(int value);
+    void _addNode(NODE* insert_node);
     int _Search(int ID, int department);
+    void _Update(int ID, int department);
     void _Sort(int ID, int department);
+    Employee _RetrieveEmployee(int ID, int department);
+    void _loadEmployees();
 
 public:
     Employee();
     Employee(int ID, int department, string name);
     ~Employee();
+    bool Search(int ID, int department);
+    int returnDepartment();
+    int returnID();
     void showData();
     void Sort(int ID, int department);
     void Update(int ID, int department);
-    int returnID();
-    int returnDepartment();
     Employee RetrieveEmployee(int ID, int department);
     NODE* getCurrent();
     string returnName();
-    bool Search(int ID, int department);
 };
 
 #endif

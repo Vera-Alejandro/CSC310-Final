@@ -1,4 +1,5 @@
 #include "binaryFile.h"
+#include "customErrorClass.h"
 
 //public 
 
@@ -47,12 +48,21 @@ bool binaryFile::_ReadData(int size)
     int i = 1;
     while (getline(input_file, file_value))
     {
-        stringstream ss(file_value);
-        getline(ss, temp_string, ',');
-        department = stoi(temp_string);
-        getline(ss, temp_string, ',');
-        employee_id = stoi(temp_string);
-        getline(ss, name, ' ');
+        try
+        {
+            stringstream ss(file_value);
+            getline(ss, temp_string, ',');
+            department = stoi(temp_string);
+            getline(ss, temp_string, ',');
+            employee_id = stoi(temp_string);
+            getline(ss, name, ' ');
+
+            if(name.length() > 30) { throw myException("name over 30 char long", INFORMATIONAL); }
+        }
+        catch(myException &e)
+        {
+            cerr << e.what() << endl;
+        }
 
         new_Employee = new Employee(employee_id, department, name);
 
@@ -86,3 +96,4 @@ bool binaryFile::ReadData(int size)
         return false;
     }
 }
+

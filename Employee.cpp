@@ -15,6 +15,8 @@ Employee::~Employee()
 
 Employee::Employee()
 {
+    e_NODE* first = _createNode(0);
+    _first = first;
 }
 
 NODE* Employee::getCurrent()
@@ -138,9 +140,7 @@ void Employee::_Update(int id_input, int department_input)
 
     Employee retrieve;;
 
-    if (!search) {
-        cout << "Cannot open file!" << endl;
-    }
+    if (!search) { throw myException("Cannot open file!", INFORMATIONAL); }
 
     while (!search.eof())
     {
@@ -153,22 +153,66 @@ void Employee::_Update(int id_input, int department_input)
             break;
         }
     }
-    if (flag == 'f')
-    {
-        cout << "No Record in file" << endl;
-        exit(2);
-    }
+
+    if (flag == 'f') { throw myException("No Record in file", INFORMATIONAL); }
 
     search.close();
-    if (!search.good()) {
-        cout << "Error Occured during read" << endl;
-        exit(2);
-    }
+
+    if (!search.good()) { throw myException("Error Occured during read", INFORMATIONAL); }
 }
 
-void Employee::_Sort(int ID, int department) {
+NODE* Employee::_createNode(int value)
+{
+    NODE* new_node = new NODE;
 
-    binaryFile inputFile;
+    if (new_node == NULL) { throw myException("node creation failed", INFORMATIONAL); }
+
+    new_node->value = value;
+    new_node->next = NULL;
+
+    return new_node;
+}
+
+void Employee::_addNode(NODE* insert_node)
+{
+    NODE* move = _first;
+
+    while (_first->next != NULL)
+    {
+        move = _first->next;
+    }
+
+    move->next = insert_node;
+
+    return;
+}
+void Employee::_loadEmployees()
+{
+    string name_out;
+    char flag = 'n';
+
+    ifstream search("employee_info.dat", ios::in | ios::binary);
+
+    Employee retrieve;;
+
+    if (!search) { throw myException("Cannot open file!", INFORMATIONAL); }
+
+    while (!search.eof())
+    {
+        search.read((char*)&retrieve, sizeof(&retrieve));
+        _addNode(_createNode(retrieve._ID));
+    }
+
+    if (flag == 'f') { throw myException("No Record in file", INFORMATIONAL); }
+
+    search.close();
+
+    if (!search.good()) { throw myException("Error Occured during read", INFORMATIONAL); }
+}
+
+
+void Employee::_Sort(int ID, int department)
+{
     NODE* node = new NODE;
     node->value = department;
     node->secondValue = ID;
@@ -177,9 +221,11 @@ void Employee::_Sort(int ID, int department) {
     NODE* search = _first;
 
 
-    while (search != NULL) {
+    while (search != NULL && search->next != NULL) 
+    {
 
-        if (node->secondValue > node->next->secondValue) {
+        if (node->secondValue > node->next->secondValue) 
+        {
             tmp->secondValue = node->current->secondValue;
             node->current->secondValue = node->next->secondValue;
             node->next->secondValue = tmp->secondValue;
@@ -192,9 +238,10 @@ void Employee::_Sort(int ID, int department) {
 
     search = _first;
 
-    while (search != NULL) {
+    while (search != NULL && search->next != NULL)
+    {
 
-        if (node->value > node->next->value) 
+        if (node->value > node->next->value)
         {
             tmp->value = node->current->value;
             node->current->value = node->next->value;
@@ -207,7 +254,8 @@ void Employee::_Sort(int ID, int department) {
 
     search = _first;
 
-    while (search != NULL) {
+    while (search != NULL && search->next != NULL) 
+    {
         cout << node->value << ", " << node->secondValue << endl;
         if (search->next != NULL) {
             search = search->next;

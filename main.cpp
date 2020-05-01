@@ -24,7 +24,9 @@ int main()
     inputFile.ReadData(1);
     // inputFile.ReadData(2);
     // inputFile.ReadData(3);
-    receipt = newEmployee.RetrieveEmployee(74993,0); // kinda 
+    receipt = newEmployee.RetrieveEmployee(74993,0); 
+
+    newEmployee.Sort(receipt.returnID(), receipt.returnDepartment());
 
     cout << endl << "this code works" << endl;
 
