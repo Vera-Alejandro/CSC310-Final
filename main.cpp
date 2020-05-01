@@ -17,12 +17,15 @@ int main()
 {
 
     binaryFile inputFile;
+    Employee newEmployee;
+    Employee receipt;
 
     // inputFile.ReadData(0);
     inputFile.ReadData(1);
     // inputFile.ReadData(2);
     // inputFile.ReadData(3);
-    inputFile.RetrieveEmployee(4,20);
+    receipt = newEmployee.RetrieveEmployee(74993,0);
+    //newEmployee.Update(74993, 0);
 
 
     return 0;
