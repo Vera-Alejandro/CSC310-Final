@@ -17,4 +17,4 @@ Employee.o: Employee.cpp
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 clean:
-	rm *.o excBinaryFile
+	rm *.o excBinaryFile employee_info.dat
