@@ -1,8 +1,8 @@
 #include "binaryFile.h"
 
-        //Public
+//Public
 
- Employee::Employee(int ID, int department, string name)
+Employee::Employee(int ID, int department, string name)
 {
     this->_ID = ID;
     this->_Department = department;
@@ -17,7 +17,7 @@ Employee::Employee()
 {
 }
 
-e_NODE* Employee::getCurrent()
+NODE* Employee::getCurrent()
 {
     return this->_first;
 }
@@ -39,12 +39,12 @@ void Employee::Sort(int ID, int department)
 
 bool Employee::Search(int ID, int department)
 {
-    int found;
-    _Search(ID, department);
+    int found = _Search(ID, department);
 
-    if(found == -1){
+    if (found == -1) {
         return false;
-    }else{
+    }
+    else {
         return true;
     }
 }
@@ -55,28 +55,31 @@ void Employee::Update(int ID, int department)
 }
 
 
-        //Private
+//Private
 
-string Employee:: returnName()
+string Employee::returnName()
 {
     return this->_Name;
 }
 
-void Employee:: showData()
+void Employee::showData()
 {
     cout << "ID: " << returnID() << endl;
     cout << "Department: " << returnDepartment() << endl;
     cout << "Name: " << returnName() << endl;
 }
 
-Employee Employee:: RetrieveEmployee(int ID, int department)
+Employee Employee::RetrieveEmployee(int ID, int department)
 {
-    Employee bad;
     try
     {
-        return _RetrieveEmployee(ID, department);
+        Employee temp = _RetrieveEmployee(ID, department);
+        cout << "**** " << temp._ID << endl;
+        cout << "**** " << temp._Name << endl;
+        cout << "**** " << temp._Department << endl;
+        return temp;
     }
-    catch(const std::exception& e)
+    catch (const std::exception& e)
     {
         std::cerr << e.what() << '\n';
         exit(2);
@@ -86,7 +89,7 @@ Employee Employee:: RetrieveEmployee(int ID, int department)
 
 /////////////////////////////////////////////////Private//////////////////////////////////////////////////////////////
 
-Employee Employee:: _RetrieveEmployee(int id_input, int department_input)
+Employee Employee::_RetrieveEmployee(int id_input, int department_input)
 {
     string name_out;
     char flag = 'n';
@@ -95,30 +98,30 @@ Employee Employee:: _RetrieveEmployee(int id_input, int department_input)
 
     Employee retrieve;
 
-    if(!search) {
+    if (!search) {
         cout << "Cannot open file!" << endl;
     }
 
 
-    while(!search.eof())
+    while (!search.eof())
     {
-        search.read((char *)&retrieve, sizeof(retrieve));
+        search.read((char*)&retrieve, sizeof(retrieve));
         //cout << "ID test: " << retrieve.returnID() << " Department Test: " << retrieve.returnDepartment() << " Name Test: " << retrieve.returnName() << endl;
-        if(retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
+        if (retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
         {
             flag = 'y';
             name_out = retrieve.returnName();
             break;
         }
     }
-    if(flag == 'f')
+    if (flag == 'f')
     {
-        cout<<"No Record in file"<<endl;
+        cout << "No Record in file" << endl;
         exit(2);
     }
 
     search.close();
-    if(!search.good()){
+    if (!search.good()) {
         cout << "Error Occured during read" << endl;
         exit(2);
     }
@@ -128,13 +131,12 @@ Employee Employee:: _RetrieveEmployee(int id_input, int department_input)
     cout << "Department: " << department_input << endl;
     cout << "Name: " << name_out << endl;
 
+
     retrieve._ID = id_input;
     retrieve._Department = department_input;
     retrieve._Name = name_out;
 
-
     return retrieve;
-    
 }
 
 void Employee::_Update(int id_input, int department_input)
@@ -146,54 +148,54 @@ void Employee::_Update(int id_input, int department_input)
 
     Employee retrieve;;
 
-    if(!search) {
+    if (!search) {
         cout << "Cannot open file!" << endl;
     }
 
-    while(!search.eof())
+    while (!search.eof())
     {
-        search.read((char *)&retrieve, sizeof(retrieve));
+        search.read((char*)&retrieve, sizeof(retrieve));
         //cout << "ID test: " << retrieve.returnID() << " Department Test: " << retrieve.returnDepartment() << " Name Test: " << retrieve.returnName() << endl;
-        if(retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
+        if (retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
         {
             flag = 'y';
-            cout<< "Enter updated name: ";
+            cout << "Enter updated name: ";
             cin >> name_out;
             break;
         }
     }
-    if(flag == 'f')
+    if (flag == 'f')
     {
-        cout<<"No Record in file"<<endl;
+        cout << "No Record in file" << endl;
         exit(2);
     }
 
     search.close();
-    if(!search.good()){
+    if (!search.good()) {
         cout << "Error Occured during read" << endl;
         exit(2);
     }
 }
 
-void Employee::_Sort(int ID, int department){
+void Employee::_Sort(int ID, int department) {
 
     binaryFile inputFile;
-    e_NODE *node = new NODE;
+    NODE* node = new NODE;
     node->value = department;
     node->secondValue = ID;
 
-    e_NODE *tmp;
-    e_NODE *search = _first;
+    NODE* tmp = NULL;
+    NODE* search = _first;
 
 
-    while(search != NULL){
+    while (search != NULL) {
 
-        if(node->secondValue > node->next->secondValue){
+        if (node->secondValue > node->next->secondValue) {
             tmp->secondValue = node->current->secondValue;
             node->current->secondValue = node->next->secondValue;
             node->next->secondValue = tmp->secondValue;
         }
-        if(search->next != NULL){
+        if (search->next != NULL) {
             search = search->next;
         }
 
@@ -201,36 +203,37 @@ void Employee::_Sort(int ID, int department){
 
     search = _first;
 
-    while(search != NULL){
+    while (search != NULL) {
 
-        if(node->value > node->next->value){
+        if (node->value > node->next->value) 
+        {
             tmp->value = node->current->value;
             node->current->value = node->next->value;
             node->next->value = tmp->value;
         }
-        if(search->next != NULL){
+        if (search->next != NULL) {
             search = search->next;
         }
     }
 
     search = _first;
 
-    while(search != NULL){
-        cout<<node->value<<", "<<node->secondValue<<endl;
-        if(search->next != NULL){
+    while (search != NULL) {
+        cout << node->value << ", " << node->secondValue << endl;
+        if (search->next != NULL) {
             search = search->next;
         }
     }
 }
 
-int Employee::_Search(int ID, int department){
+int Employee::_Search(int ID, int department) {
 
-    e_NODE *search;
+    NODE* search;
     int count = 0;
     search = _first;
 
-    while(search != NULL){
-        if(search->value == department && search->secondValue == ID){
+    while (search != NULL) {
+        if (search->value == department && search->secondValue == ID) {
             return count;
         }
         search = search->next;

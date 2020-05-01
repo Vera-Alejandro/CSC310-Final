@@ -9,10 +9,10 @@
 
 using namespace std;
 
-typedef struct NODE{
+typedef struct NODE {
     int value, secondValue;
-    NODE *current;
-    NODE *next;
+    NODE* current;
+    NODE* next;
     //NODE *previous;
 }e_NODE;
 
@@ -33,7 +33,7 @@ private:
     int _ID;
     int _Department;
     string _Name;
-    e_NODE *_first;
+    NODE* _first;
 
     void _Update(int ID, int department);
     Employee _RetrieveEmployee(int ID, int department);
@@ -50,7 +50,7 @@ public:
     int returnID();
     int returnDepartment();
     Employee RetrieveEmployee(int ID, int department);
-    e_NODE *getCurrent();
+    NODE* getCurrent();
     string returnName();
     bool Search(int ID, int department);
 };

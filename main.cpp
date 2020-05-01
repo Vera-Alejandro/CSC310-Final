@@ -25,10 +25,12 @@ int main()
     // inputFile.ReadData(2);
     // inputFile.ReadData(3);
     receipt = newEmployee.RetrieveEmployee(74993,0);
-    //newEmployee.Update(74993, 0);
+    cout << "does it come outof the retreive function???" << endl;
 
     //sort.Sort()
 
+    cout << endl << "this code works" << endl;
 
-    return 0;
+
+    return 69;
 }
