@@ -2,7 +2,7 @@
 
         //Public
 
-Employee::Employee(int ID, int department, string name)
+ Employee::Employee(int ID, int department, string name)
 {
     this->_ID = ID;
     this->_Department = department;
@@ -79,41 +79,48 @@ Employee Employee:: RetrieveEmployee(int ID, int department)
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
-        return bad;
+        exit(2);
     }
 }
 
 
 /////////////////////////////////////////////////Private//////////////////////////////////////////////////////////////
 
-Employee Employee:: _RetrieveEmployee(int ID, int department)
+Employee Employee:: _RetrieveEmployee(int id_input, int department_input)
 {
-    int id_input;
-    int department_input;
     string name_out;
+    char flag = 'n';
 
-    ifstream search("employee_info.dat", ios::binary);
+    ifstream search("employee_info.dat", ios::in | ios::binary);
 
     Employee retrieve;
-    Employee bad;
 
     if(!search) {
         cout << "Cannot open file!" << endl;
     }
 
 
-    while(search.read((char*)&retrieve, sizeof(retrieve)))
+    while(!search.eof())
     {
+        search.read((char *)&retrieve, sizeof(retrieve));
+        //cout << "ID test: " << retrieve.returnID() << " Department Test: " << retrieve.returnDepartment() << " Name Test: " << retrieve.returnName() << endl;
         if(retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
         {
+            flag = 'y';
             name_out = retrieve.returnName();
+            break;
         }
+    }
+    if(flag == 'f')
+    {
+        cout<<"No Record in file"<<endl;
+        exit(2);
     }
 
     search.close();
     if(!search.good()){
         cout << "Error Occured during read" << endl;
-        return bad;
+        exit(2);
     }
 
     cout << "Employee Details: " << endl;
@@ -125,35 +132,47 @@ Employee Employee:: _RetrieveEmployee(int ID, int department)
     retrieve._Department = department_input;
     retrieve._Name = name_out;
 
+
     return retrieve;
     
 }
 
-void Employee::_Update(int ID, int department)
+void Employee::_Update(int id_input, int department_input)
 {
-    string name;
-    int id_input;
-    int department_input;
+    string name_out;
+    char flag = 'n';
 
-    fstream update;
-    update.open("employee_info.dat", ios::binary);
+    ifstream search("employee_info.dat", ios::in | ios::binary);
 
-    Employee updatedEmployee;
+    Employee retrieve;;
 
-    while(update.read((char*)&updatedEmployee, sizeof(updatedEmployee)))
-    {
-        if(updatedEmployee.returnID() == id_input && updatedEmployee.returnDepartment() == department_input)
-        {
-            cout << "Enter new name: ";
-            cin >> updatedEmployee._Name;
-
-            int pos = -1 * sizeof(updatedEmployee);
-            update.seekp(pos, ios::cur);
-
-            update.write((char*)&updatedEmployee, sizeof(updatedEmployee));
-        }
+    if(!search) {
+        cout << "Cannot open file!" << endl;
     }
 
+    while(!search.eof())
+    {
+        search.read((char *)&retrieve, sizeof(retrieve));
+        //cout << "ID test: " << retrieve.returnID() << " Department Test: " << retrieve.returnDepartment() << " Name Test: " << retrieve.returnName() << endl;
+        if(retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
+        {
+            flag = 'y';
+            cout<< "Enter updated name: ";
+            cin >> name_out;
+            break;
+        }
+    }
+    if(flag == 'f')
+    {
+        cout<<"No Record in file"<<endl;
+        exit(2);
+    }
+
+    search.close();
+    if(!search.good()){
+        cout << "Error Occured during read" << endl;
+        exit(2);
+    }
     
     this->_ID = ID;
     this->_Department = department;
