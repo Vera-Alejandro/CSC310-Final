@@ -173,10 +173,6 @@ void Employee::_Update(int id_input, int department_input)
         cout << "Error Occured during read" << endl;
         exit(2);
     }
-    
-    this->_ID = ID;
-    this->_Department = department;
-    this->_Name = name;
 }
 
 void Employee::_Sort(int ID, int department){
@@ -190,32 +186,40 @@ void Employee::_Sort(int ID, int department){
     e_NODE *search = _first;
 
 
-    while(search->next->next != NULL){
+    while(search != NULL){
 
         if(node->secondValue > node->next->secondValue){
             tmp->secondValue = node->current->secondValue;
             node->current->secondValue = node->next->secondValue;
             node->next->secondValue = tmp->secondValue;
         }
-        search = search->next;
+        if(search->next != NULL){
+            search = search->next;
+        }
+
     }
 
     search = _first;
 
-    while(search->next->next != NULL){
+    while(search != NULL){
 
         if(node->value > node->next->value){
             tmp->value = node->current->value;
             node->current->value = node->next->value;
             node->next->value = tmp->value;
         }
-        search = search->next;
+        if(search->next != NULL){
+            search = search->next;
+        }
     }
 
     search = _first;
 
-    while(search->next->next != NULL){
+    while(search != NULL){
         cout<<node->value<<", "<<node->secondValue<<endl;
+        if(search->next != NULL){
+            search = search->next;
+        }
     }
 }
 
