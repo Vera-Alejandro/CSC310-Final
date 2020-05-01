@@ -24,10 +24,7 @@ int main()
     inputFile.ReadData(1);
     // inputFile.ReadData(2);
     // inputFile.ReadData(3);
-    receipt = newEmployee.RetrieveEmployee(74993,0);
-    cout << "does it come outof the retreive function???" << endl;
-
-    //sort.Sort()
+    receipt = newEmployee.RetrieveEmployee(74993,0); // kinda 
 
     cout << endl << "this code works" << endl;
 
