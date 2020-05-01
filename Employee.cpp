@@ -144,8 +144,7 @@ void Employee::_Update(int id_input, int department_input)
 
     while (!search.eof())
     {
-        search.read((char*)&retrieve, sizeof(retrieve));
-        //cout << "ID test: " << retrieve.returnID() << " Department Test: " << retrieve.returnDepartment() << " Name Test: " << retrieve.returnName() << endl;
+        search.read((char*)&retrieve, sizeof(&retrieve));
         if (retrieve.returnID() == id_input && retrieve.returnDepartment() == department_input)
         {
             flag = 'y';
